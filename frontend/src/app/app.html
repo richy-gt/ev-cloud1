@@ -1,0 +1,25 @@
+<ng-container *ngIf="isLoginPage">
+  <router-outlet></router-outlet>
+</ng-container>
+
+<ng-container *ngIf="!isLoginPage">
+  <!-- Banner informativo en caso de que este activo el modo simulacion -->
+  <div class="demo-banner" *ngIf="!authService.isAzureADConfigured()">
+    <div>
+      <strong>Modo Demostracion Activo:</strong>
+      <span>
+        La aplicacion opera con datos locales para revision. Para vincular con Azure AD real, ingresa el Client ID en
+        <code>src/environments/environment.ts</code> (Consulta el archivo <strong>GUIA_CONFIGURACION_AZURE.md</strong>).
+      </span>
+    </div>
+  </div>
+
+  <app-navbar></app-navbar>
+
+  <div class="app-container">
+    <app-sidebar></app-sidebar>
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</ng-container>

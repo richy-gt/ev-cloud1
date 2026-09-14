@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.angular/
+.git/
+.gitignore
+*.log
+.vscode/
+.idea/
+GUIA_CONFIGURACION_AZURE.md

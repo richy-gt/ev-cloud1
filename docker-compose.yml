@@ -1,0 +1,59 @@
+services:
+  # Base de Datos Relacional Cloud Native
+  postgres-db:
+    image: postgres:16-alpine
+    container_name: pedidos360-db
+    environment:
+      POSTGRES_DB: pedidos360_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d pedidos360_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - pedidos360-network
+
+  # Microservicio Backend en Spring Boot
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: pedidos360-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/pedidos360_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres123
+      SPRING_DATASOURCE_DRIVER: org.postgresql.Driver
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    networks:
+      - pedidos360-network
+
+  # Frontend en Angular servido mediante Nginx
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: pedidos360-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - pedidos360-network
+
+volumes:
+  postgres_data:
+
+networks:
+  pedidos360-network:
+    driver: bridge

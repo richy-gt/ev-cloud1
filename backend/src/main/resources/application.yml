@@ -1,0 +1,55 @@
+server:
+  port: 8080
+
+# ==============================================================================
+# SECCION PARA LA PERSONA ENCARGADA DE MICROSOFT AZURE
+# Reemplaza los dos valores indicados a continuacion con los datos del Azure Portal:
+# ==============================================================================
+azure:
+  activedirectory:
+    # 1. Directory (tenant) ID registrado en Azure Entra ID
+    tenant-id: TU_TENANT_ID_DE_AZURE
+
+    # 2. Application (client) ID de la aplicacion backend registrada en Azure
+    client-id: TU_BACKEND_CLIENT_ID
+
+    # 3. Application ID URI configurada en Expose an API en Azure
+    app-id-uri: api://TU_BACKEND_CLIENT_ID
+
+spring:
+  application:
+    name: pedidos360-backend
+
+  # Configuracion de OAuth2 Resource Server para validar tokens de Azure AD
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://login.microsoftonline.com/${azure.activedirectory.tenant-id}/v2.0
+          jwk-set-uri: https://login.microsoftonline.com/${azure.activedirectory.tenant-id}/discovery/v2.0/keys
+
+  # Configuracion de Base de Datos
+  # En Docker Compose o Cloud se conecta a PostgreSQL mediante variables de entorno.
+  # Para pruebas locales directas sin PostgreSQL, conmuta automaticamente a H2 en memoria.
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:pedidos360_db}}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres123}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+# Configuracion de CORS para comunicacion con Angular
+app:
+  cors:
+    allowed-origins:
+      - "http://localhost:4200"
+      - "http://localhost:80"
+      - "http://localhost"
+      - "http://127.0.0.1:4200"
