@@ -30,7 +30,7 @@ export const environment = {
   // Configuracion del API Gateway / BFF (Spring Boot en AWS EC2)
   api: {
     // URL base del API Gateway de AWS o BFF
-    baseUrl: 'https://api-gateway.pedidos360.com/api',
+    baseUrl: 'https://1xzvsf585a.execute-api.us-east-1.amazonaws.com',
     // Si esta en desarrollo local con Spring Boot:
     localBaseUrl: 'http://localhost:8080/api',
   },
