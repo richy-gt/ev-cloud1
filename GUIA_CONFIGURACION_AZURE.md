@@ -17,7 +17,7 @@ Inicia sesion en https://portal.azure.com y busca el servicio **Microsoft Entra 
    - URL: Escribe exactamente `http://localhost:4200`
 5. Haz clic en **Register**.
 6. En la pantalla principal que aparece, copia:
-   - **Application (client) ID**
+   - **Application (client) ID**  
    - **Directory (tenant) ID**
 
 ### 2. Registrar la aplicacion Backend y crear el Scope
@@ -35,21 +35,6 @@ Inicia sesion en https://portal.azure.com y busca el servicio **Microsoft Entra 
    - State: Enabled
 8. Haz clic en **Add scope**.
 
-### 3. Crear los Roles exigidos por la rubrica (App Roles)
-La rubrica exige que el token contenga roles y que el backend los valide:
-1. En el menu izquierdo del backend (**Pedidos360-Backend**), entra a **App roles**.
-2. Haz clic en **Create app role**:
-   - Display name: Administrador
-   - Allowed member types: Users/Groups
-   - Value: `Pedidos.Admin`
-   - Description: Rol administrador
-   - Marca la casilla de habilitar y haz clic en **Apply**.
-3. Crea un segundo rol con el mismo procedimiento:
-   - Display name: Operador
-   - Allowed member types: Users/Groups
-   - Value: `Pedidos.Operador`
-   - Description: Rol operador
-   - Clic en **Apply**.
 
 ### 4. Asignar los Roles a tu usuario
 1. En el menu principal de **Microsoft Entra ID**, entra a **Enterprise applications**.

@@ -8,13 +8,13 @@ server:
 azure:
   activedirectory:
     # 1. Directory (tenant) ID registrado en Azure Entra ID
-    tenant-id: TU_TENANT_ID_DE_AZURE
+    tenant-id: 3aff258d-8148-4333-b4f0-b703a6506f13
 
     # 2. Application (client) ID de la aplicacion backend registrada en Azure
-    client-id: TU_BACKEND_CLIENT_ID
+    client-id: 438f00d6-0d85-47f8-b2ce-8bb0692ab42e
 
     # 3. Application ID URI configurada en Expose an API en Azure
-    app-id-uri: api://TU_BACKEND_CLIENT_ID
+    app-id-uri: api://8d2ecd3f-4a43-467d-b2f9-e75e887036e1
 
 spring:
   application:
