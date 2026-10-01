@@ -31,3 +31,7 @@ Desktop.ini
 **/*.class
 **/*.jar
 **/*.war
+
+# Carpetas extras
+**/Documentos
+
