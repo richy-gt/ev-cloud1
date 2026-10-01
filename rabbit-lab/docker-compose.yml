@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   rabbitmq:
-    image: rabbitmq:3-management # changed from 4.2 to 3-management as 4.2 might not exist on Dockerhub officially yet or has issues
-    container_name: rabbitmq
+    image: rabbitmq:4.2-management
+    container_name: rabbitmq-dlq-demo
     ports:
       - "5672:5672" # AMQP Protocol Port
       - "15672:15672" # Management UI Port
@@ -11,7 +11,7 @@ services:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
     volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
+      - rabbitmq_dlq_data:/var/lib/rabbitmq
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "ping"]
       interval: 10s
@@ -19,4 +19,4 @@ services:
       retries: 5
 
 volumes:
-  rabbitmq_data:
+  rabbitmq_dlq_data:
