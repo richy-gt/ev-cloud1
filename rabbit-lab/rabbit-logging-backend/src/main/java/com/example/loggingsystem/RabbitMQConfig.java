@@ -29,6 +29,7 @@ public class RabbitMQConfig {
     @Bean
     public Queue ordersQueue() {
         return QueueBuilder.durable(ORDERS_QUEUE)
+            .withArgument("x-queue-type", "quorum")
             .withArgument("x-message-ttl", 30000)
             .withArgument("x-dead-letter-exchange", DLX_EXCHANGE)
             .withArgument("x-dead-letter-routing-key", "order.dead")
@@ -49,6 +50,7 @@ public class RabbitMQConfig {
     @Bean
     public Queue deadLetterQueue() {
         return QueueBuilder.durable(DLQ_QUEUE)
+            .withArgument("x-queue-type", "quorum")
             .withArgument("x-message-ttl", 86400000)
             .build();
     }
